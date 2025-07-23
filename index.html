@@ -26,7 +26,6 @@
     h1 {
       text-align: center;
       color: #00457a;
-      margin: 0;
       margin-bottom: -5px;
     }
 
@@ -81,50 +80,6 @@
     input[type="submit"]:hover {
       background-color: #0058cc;
       cursor: pointer;
-    }
-
-    #thank-you-message {
-      display: none;
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    #thank-you-message img.car {
-      height: 150px;
-      margin-bottom: 10px;
-    }
-
-    #thank-you-message h2 {
-      color: #00457a;
-      font-size: 28px;
-      margin: 0 0 10px;
-    }
-
-    #thank-you-message p {
-      font-size: 16px;
-      color: #333;
-    }
-
-    #thank-you-message .tick {
-      font-size: 40px;
-      color: green;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .btn-back {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
-      background-color: #0072ff;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 16px;
-    }
-
-    .btn-back:hover {
-      background-color: #0058cc;
     }
   </style>
 </head>
@@ -206,23 +161,13 @@
     </form>
 
     <iframe name="hidden_iframe" style="display:none;"></iframe>
-
-    <!-- Thank You Message -->
-    <div id="thank-you-message">
-      <img src="images/red-super-sports-car.png" alt="Car Image" class="car" />
-      <span class="tick">✅</span>
-      <h2>Thank You!</h2>
-      <p>Your inquiry has been submitted successfully. One of our representatives will get in touch with you shortly.</p>
-      <a href="index.html" class="btn-back">Submit Another Inquiry</a>
-    </div>
   </div>
 
   <script>
     function handleSubmit() {
       setTimeout(() => {
-        document.querySelector("form").style.display = "none";
-        document.getElementById("thank-you-message").style.display = "block";
-      }, 800);
+        window.location.href = "thank-you-page.html";
+      }, 1000); // slight delay to ensure submission
     }
   </script>
 </body>
