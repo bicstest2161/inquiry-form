@@ -167,8 +167,14 @@
     function handleSubmit() {
       setTimeout(() => {
         window.location.href = "thank-you-page.html";
-      }, 1000); // slight delay to ensure submission
+      }, 1000);
     }
+
+    // Prevent past date selection
+    document.addEventListener("DOMContentLoaded", function () {
+      const today = new Date().toISOString().split("T")[0];
+      document.getElementById("purchase_date").setAttribute("min", today);
+    });
   </script>
 </body>
 </html>
