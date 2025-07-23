@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="images/red-super-sports-car.png">
+  <title>Car Dealership Inquiry Form</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #f0f0f0, #ffffff);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      padding: 40px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00457a;
+      margin: 0;
+      margin-bottom: -5px;
+    }
+
+    p.description {
+      text-align: center;
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    p.required-note {
+      text-align: center;
+      color: #d10000;
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .required-asterisk {
+      color: red;
+      margin-left: 4px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    input[type="submit"] {
+      background-color: #0072ff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      transition: background 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0058cc;
+      cursor: pointer;
+    }
+
+    #thank-you-message {
+      display: none;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    #thank-you-message img.car {
+      height: 150px;
+      margin-bottom: 10px;
+    }
+
+    #thank-you-message h2 {
+      color: #00457a;
+      font-size: 28px;
+      margin: 0 0 10px;
+    }
+
+    #thank-you-message p {
+      font-size: 16px;
+      color: #333;
+    }
+
+    #thank-you-message .tick {
+      font-size: 40px;
+      color: green;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #0072ff;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .btn-back:hover {
+      background-color: #0058cc;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div style="text-align:center; margin-bottom: 20px;">
+      <img src="images/Bicsglobal_Logo_v1.png" alt="Bics Logo" height="100">
+    </div>
+
+    <h1>
+      <img src="images/red-super-sports-car.png" alt="Car Icon" height="57" style="vertical-align: middle; padding-bottom: 8px;">
+      Car Dealership Inquiry Form
+    </h1>
+
+    <p class="description">Please fill out this form to get a personalized quote for your preferred car.</p>
+    <p class="required-note">* Fields marked with an asterisk are required.</p>
+
+    <form 
+      action="https://hooks.zapier.com/hooks/catch/23877852/uut95s7/" 
+      method="POST" 
+      target="hidden_iframe" 
+      onsubmit="handleSubmit(); return false;"
+    >
+      <label for="first_name">First Name<span class="required-asterisk">*</span></label>
+      <input type="text" name="first_name" id="first_name" required placeholder="John">
+
+      <label for="last_name">Last Name</label>
+      <input type="text" name="last_name" id="last_name" required placeholder="Doe">
+
+      <label for="email">Email Address<span class="required-asterisk">*</span></label>
+      <input type="email" name="email" id="email" required placeholder="john.doe@example.com">
+
+      <label for="phone">Phone Number</label>
+      <input type="text" name="phone" id="phone" placeholder="+1 555-123-4567">
+
+      <label for="car_model">Preferred Car Model<span class="required-asterisk">*</span></label>
+      <select name="car_model" id="car_model" required>
+        <option value="">-- Select --</option>
+        <option value="Tesla Model 3">Tesla Model 3</option>
+        <option value="BMW X5">BMW X5</option>
+        <option value="Audi Q5">Audi Q5</option>
+        <option value="Mercedes C-Class">Mercedes C-Class</option>
+        <option value="Hyundai Ioniq 5">Hyundai Ioniq 5</option>
+      </select>
+
+      <label for="budget_range">Budget Range</label>
+      <select name="budget_range" id="budget_range">
+        <option value="">-- Select --</option>
+        <option value="$20,000 – $30,000">$20,000 – $30,000</option>
+        <option value="$30,000 – $40,000">$30,000 – $40,000</option>
+        <option value="$40,000 – $50,000">$40,000 – $50,000</option>
+        <option value="$50,000+">$50,000+</option>
+      </select>
+
+      <label for="lease_company">Lease Company</label>
+      <select name="lease_company" id="lease_company" required>
+        <option value="">-- Select --</option>
+        <option value="CompanyA">CompanyA</option>
+        <option value="CompanyB">CompanyB</option>
+        <option value="CompanyC">CompanyC</option>
+      </select>
+
+      <label for="contact_method">Preferred Contact Method</label>
+      <select name="contact_method" id="contact_method" required>
+        <option value="">-- Select --</option>
+        <option value="Phone">Phone</option>
+        <option value="Email">Email</option>
+        <option value="WhatsApp">WhatsApp</option>
+        <option value="Teams">Teams</option>
+      </select>
+
+      <label for="purchase_date">Expected Purchase Date<span class="required-asterisk">*</span></label>
+      <input type="date" name="purchase_date" id="purchase_date">
+
+      <label for="notes">Additional Message / Notes</label>
+      <textarea name="notes" id="notes" rows="4" placeholder="Example: Looking for a white Tesla with autopilot."></textarea>
+
+      <input type="submit" value="Submit Inquiry">
+    </form>
+
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+    <!-- Thank You Message -->
+    <div id="thank-you-message">
+      <img src="images/red-super-sports-car.png" alt="Car Image" class="car" />
+      <span class="tick">✅</span>
+      <h2>Thank You!</h2>
+      <p>Your inquiry has been submitted successfully. One of our representatives will get in touch with you shortly.</p>
+      <a href="index.html" class="btn-back">Submit Another Inquiry</a>
+    </div>
+  </div>
+
+  <script>
+    function handleSubmit() {
+      setTimeout(() => {
+        document.querySelector("form").style.display = "none";
+        document.getElementById("thank-you-message").style.display = "block";
+      }, 800);
+    }
+  </script>
+</body>
+</html>

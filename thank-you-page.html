@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thank You - Car Inquiry</title>
+  <link rel="icon" href="images/red-super-sports-car.png" type="image/png" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f0f0, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .thank-you-container {
+      text-align: center;
+      background-color: #fff;
+      padding: 50px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .thank-you-container img.car {
+      height: 35vh;
+      margin-bottom: -47px;
+      margin-left: -57px;
+
+    }
+
+    h1 {
+      color: #013c83;
+      font-size: 47px;
+      margin: 0 0 10px;
+    }
+
+    p.description {
+      color: #333;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      background-color: #0072ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0058cc;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 32px;
+      }
+
+      .thank-you-container img.car {
+        height: 30vh;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="thank-you-container">
+    <img src="images/red-super-sports-car.png" alt="Car Icon" class="car" />
+    <h1>Thank You!</h1>
+    <p class="description">
+      Your inquiry has been submitted successfully
+    </p>
+    <a href="index.html" class="btn">Check Another Inquiry</a>
+  </div>
+</body>
+</html>
