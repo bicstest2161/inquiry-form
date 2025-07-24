@@ -18,6 +18,7 @@
     }
 
     .thank-you-container {
+      font-family: monospace;
       text-align: center;
       background-color: #fff;
       padding: 50px 30px;
@@ -27,21 +28,14 @@
       width: 100%;
     }
 
-    .thank-you-container img.car {
-/*       height: 35vh; */
-      margin-top: -47px;
-      margin-bottom: -47px;
-      /* margin-left: -57px; */
-
-    }
-
     h1 {
       color: #013c83;
-      font-size: 47px;
+      font-size: 43px;
       margin: 0 0 10px;
     }
 
     p.description {
+      font-family: Geneva;
       color: #333;
       font-size: 18px;
       margin-bottom: 30px;
@@ -68,10 +62,6 @@
         font-size: 32px;
       }
 
-      .thank-you-container img.car {
-        height: 30vh;
-      }
-
       .btn {
         padding: 12px 20px;
         font-size: 16px;
@@ -84,12 +74,23 @@
     <div style="text-align:center; margin-bottom: 20px;">
       <img src="images/Bicsglobal_Logo_v1.png" alt="Bics Logo" height="100">
     </div>
-    <img src="images/red-super-sports-car.png" alt="Car Icon" class="car" />
+
     <h1>Thank You!</h1>
     <p class="description">
-      Your inquiry has been submitted successfully
+      Your inquiry has been submitted successfully. <br>
+      Details sent to your mail <span id="email-text" style="font-weight: bold;"></span>, please check.
     </p>
     <a href="index.html" class="btn">Check Another Inquiry</a>
   </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const email = params.get("email");
+      if (email) {
+        document.getElementById("email-text").textContent = email;
+      }
+    });
+  </script>
 </body>
 </html>
