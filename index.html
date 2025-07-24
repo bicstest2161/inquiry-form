@@ -37,7 +37,7 @@
     }
 
     p.required-note {
-      text-align: center;
+      text-align: left;
       color: #d10000;
       font-size: 13px;
       margin-bottom: 30px;
@@ -55,8 +55,8 @@
       margin-left: 4px;
     }
 
-    input, select, textarea {
-      width: 100%;
+    input, textarea {
+      width: 96%;
       padding: 12px;
       margin-bottom: 20px;
       border-radius: 8px;
@@ -64,26 +64,108 @@
       font-size: 14px;
     }
 
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      /* color: #d1d0d0; */
+    }
+    
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      color: #d1d0d0;
+    }
+
+    select.filled {
+    color: #000; /* Change to black or any color after selection */
+    }
+
+    select:focus {
+    color: #000;
+    }
+
     textarea {
       resize: vertical;
     }
 
-    input[type="submit"] {
-      background-color: #0072ff;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      transition: background 0.3s ease;
+input[type="submit"] {
+  background-color: #0072ff !important;
+  color: white !important;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  transition: background 0.3s ease;
+  border-radius: 8px;
+}
+    input {
+      background-color: white !important;
+      color: black !important;
     }
 
-    input[type="submit"]:hover {
-      background-color: #0058cc;
-      cursor: pointer;
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-internal-autofill-selected {
+      -webkit-box-shadow: 0 0 0 1000px white inset !important;
+      -webkit-text-fill-color: black !important;
+      background-color: white !important;
+      transition: background-color 5000s ease-in-out 0s;
     }
+
+
+ 
+input[type="submit"]:hover {
+  background-color: #0058cc !important;
+  cursor: pointer;
+}
+
+    input::placeholder,
+    textarea::placeholder{
+      color: #d1d0d0;
+      opacity: 1;
+    }
+
+  input[type="date"] {
+    color: #888; /* Default color when no date is selected */
+  }
+
+  input[type="date"].filled {
+    color: #000; /* When a date is selected */
+  }
+
+  input[type="date"]:focus {
+    color: #000;
+  }
+  
+  #loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff; /* Or use transparent if needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
   </style>
 </head>
 <body>
+
+  <div id="loading-screen">
+  <img src="images/preloader.gif" alt="Loading..." />
+  </div>
+
   <div class="form-container">
     <div style="text-align:center; margin-bottom: 20px;">
       <img src="images/Bicsglobal_Logo_v1.png" alt="Bics Logo" height="100">
@@ -95,7 +177,6 @@
     </h1>
 
     <p class="description">Please fill out this form to get a personalized quote for your preferred car.</p>
-    <p class="required-note">* Fields marked with an asterisk are required.</p>
 
     <form 
       action="https://hooks.zapier.com/hooks/catch/23877852/uut95s7/" 
@@ -104,16 +185,16 @@
       onsubmit="return handleSubmit();"
     >
       <label for="first_name">First Name<span class="required-asterisk">*</span></label>
-      <input type="text" name="first_name" id="first_name" required placeholder="John">
+      <input type="text" name="first_name" id="first_name" required placeholder="Enter your first name">
 
       <label for="last_name">Last Name</label>
-      <input type="text" name="last_name" id="last_name" placeholder="Doe">
+      <input type="text" name="last_name" id="last_name" placeholder="Enter your last name">
 
       <label for="email">Email Address<span class="required-asterisk">*</span></label>
-      <input type="email" name="email" id="email" required placeholder="john.doe@example.com">
+      <input type="email" name="email" id="email" required placeholder="Enter your email id">
 
       <label for="phone">Phone Number</label>
-      <input type="text" name="phone" id="phone" placeholder="+1 555-123-4567">
+      <input type="text" name="phone" id="phone" placeholder="Enter your phone number">
 
       <label for="car_model">Preferred Car Model<span class="required-asterisk">*</span></label>
       <select name="car_model" id="car_model" required>
@@ -157,7 +238,8 @@
       <label for="notes">Additional Message / Notes</label>
       <textarea name="notes" id="notes" rows="4" placeholder="Example: Looking for a white Tesla with autopilot."></textarea>
 
-      <input type="submit" value="Submit Inquiry">
+      <p class="required-note">Please fill out all mandatory fields (*)</p>
+      <input type="submit" value="Send Inquiry">
     </form>
 
     <iframe name="hidden_iframe" style="display:none;"></iframe>
@@ -165,16 +247,70 @@
 
   <script>
     function handleSubmit() {
+      const email = document.getElementById("email").value;
       setTimeout(() => {
-        window.location.href = "thank-you-page.html";
+        window.location.href = `thank-you-page.html?email=${encodeURIComponent(email)}`;
       }, 1500);
-      return true; // allow form submission
+      return true;
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-      const today = new Date().toISOString().split("T")[0];
-      document.getElementById("purchase_date").setAttribute("min", today);
+    const dateInput = document.getElementById("purchase_date");
+
+    // Set today's date as min
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.setAttribute("min", today);
+
+    // Apply or remove 'filled' class based on initial value
+    function updateFilledClass() {
+      if (dateInput.value) {
+        dateInput.classList.add("filled");
+      } else {
+        dateInput.classList.remove("filled");
+      }
+    }
+
+    // Run on page load
+    updateFilledClass();
+
+    // Run on user input
+    dateInput.addEventListener("input", updateFilledClass);
+  });
+
+    document.querySelectorAll('select').forEach(function(select) {
+    // Set initial class based on value
+    if (select.value) select.classList.add('filled');
+
+    // Update class on change
+    select.addEventListener('change', function () {
+      if (this.value) {
+        this.classList.add('filled');
+      } else {
+        this.classList.remove('filled');
+      }
     });
+    });
+
+    const dateInput = document.getElementById('purchase_date');
+
+    // Set initial color if value is prefilled
+    if (dateInput.value) {
+      dateInput.classList.add('filled');
+    }
+
+    dateInput.addEventListener('input', function () {
+      if (this.value) {
+        this.classList.add('filled');
+      } else {
+        this.classList.remove('filled');
+      }
+    });
+
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loading-screen");
+    loader.style.display = "none";
+  });
+
   </script>
 </body>
 </html>
