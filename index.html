@@ -221,13 +221,16 @@
       </select>
 
       <label for="lease_from_date">Lease Duration From<span class="required-asterisk">*</span></label>
-      <input type="date" name="lease_from_date" id="lease_from_date" required>
+      <input type="date" id="lease_from_date" required>
+      <input type="hidden" name="lease_from_date" id="lease_from_date_formatted">
 
       <label for="lease_to_date">Lease Duration To<span class="required-asterisk">*</span></label>
-      <input type="date" name="lease_to_date" id="lease_to_date" required>
+      <input type="date" id="lease_to_date" required>
+      <input type="hidden" name="lease_to_date" id="lease_to_date_formatted">
 
-      <label for="lease_days">Number of Total Lease Days</label>
-      <input type="text" id="lease_days" name="lease_days" readonly placeholder="Auto-calculated">
+      <label for="lease_days_display">Number of Total Lease Days</label>
+      <input type="text" id="lease_days_display" readonly placeholder="Auto-calculated">
+      <input type="hidden" id="lease_days" name="lease_days">
 
       <label for="notes">Additional Message / Notes</label>
       <textarea name="notes" id="notes" rows="4" placeholder="Example: Looking for a white Tesla with autopilot."></textarea>
@@ -241,8 +244,9 @@
 
   <script>
     function handleSubmit() {
-      const email = document.getElementById("email").value;
+      calculateLeaseDays(); // make sure hidden fields are populated
 
+      const email = document.getElementById("email").value;
       document.getElementById("loading-screen").style.display = "flex";
       document.querySelector(".form-container").style.display = "none";
 
@@ -275,7 +279,11 @@
 
     const fromDate = document.getElementById("lease_from_date");
     const toDate = document.getElementById("lease_to_date");
-    const leaseDays = document.getElementById("lease_days");
+
+    function formatDateToDDMMYYYY(dateString) {
+      const [year, month, day] = dateString.split("-");
+      return `${day}-${month}-${year}`;
+    }
 
     function calculateLeaseDays() {
       if (fromDate.value && toDate.value) {
@@ -285,13 +293,22 @@
         if (to < from) {
           alert("Lease Duration To cannot be earlier than From date.");
           toDate.value = "";
-          leaseDays.value = "";
+          document.getElementById("lease_days_display").value = "";
+          document.getElementById("lease_days").value = "";
+          document.getElementById("lease_from_date_formatted").value = "";
+          document.getElementById("lease_to_date_formatted").value = "";
           return;
         }
 
         const timeDiff = to - from;
         const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
-        leaseDays.value = `${daysDiff} day${daysDiff > 1 ? 's' : ''}`;
+
+        document.getElementById("lease_days_display").value = `${daysDiff} day${daysDiff > 1 ? 's' : ''}`;
+        document.getElementById("lease_days").value = daysDiff;
+
+        // Set formatted date in hidden fields
+        document.getElementById("lease_from_date_formatted").value = formatDateToDDMMYYYY(fromDate.value);
+        document.getElementById("lease_to_date_formatted").value = formatDateToDDMMYYYY(toDate.value);
       }
     }
 
